@@ -1,0 +1,24 @@
+# Örnek Caddy site bloğu. ALAN_ADI ve ANAHTAR'ı değiştir.
+# ANAHTAR: uzun rastgele bir metin →  python -c "import secrets; print(secrets.token_urlsafe(18))"
+# Erişim: https://ALAN_ADI/?k=ANAHTAR bir kez açılınca çerez yazılır; anahtarsız ya da yanlış anahtarlı istek 404 alır.
+ALAN_ADI {
+	encode gzip
+	header {
+		-Server
+		Strict-Transport-Security "max-age=31536000"
+		X-Robots-Tag "noindex, nofollow"
+		Referrer-Policy no-referrer
+	}
+	@q query k=ANAHTAR
+	@c header Cookie *kay_k=ANAHTAR*
+	handle @q {
+		header Set-Cookie "kay_k=ANAHTAR; Path=/; Max-Age=34560000; Secure; HttpOnly; SameSite=Lax"
+		reverse_proxy kaydedilenler:8765
+	}
+	handle @c {
+		reverse_proxy kaydedilenler:8765
+	}
+	handle {
+		respond 404
+	}
+}

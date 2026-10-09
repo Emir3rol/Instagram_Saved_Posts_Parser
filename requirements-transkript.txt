@@ -1,0 +1,5 @@
+# İsteğe bağlı: transcribe.py (videoların sesini yazıya döker, NVIDIA ekran kartı önerilir)
+faster-whisper
+av<14  # faster-whisper decode_audio av.open(metadata_errors=) kullanıyor, PyAV 14+ kaldırdı
+nvidia-cublas-cu12
+nvidia-cudnn-cu12

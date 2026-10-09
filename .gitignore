@@ -1,0 +1,10 @@
+# kişisel veri: kaydedilenler, analizler, kapaklar, kararlar, rapor
+data/
+rapor.html
+
+# yerel
+.venv/
+__pycache__/
+*.tmp
+CLAUDE.local.md
+PLAN.md

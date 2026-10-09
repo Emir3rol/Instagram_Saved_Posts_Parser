@@ -1,0 +1,21 @@
+# İsteğe bağlı: raporu kendi sunucunda yayınlamak için (telefondan da açmak, arkadaşlarla tek link).
+# Sunucuda proje klasöründe (data/ ve rapor.html dahil):  AG=<ters vekilin docker ağı> docker compose -f sunucu/compose.yml up -d
+# izle.py'yi doğrudan internete açma; önüne anahtarlı bir ters vekil koy (örnek: kaydedilenler.caddy).
+services:
+  kaydedilenler:
+    image: python:3.12-alpine
+    container_name: kaydedilenler
+    restart: unless-stopped
+    working_dir: /app
+    command: python izle.py
+    environment:
+      - HOST=0.0.0.0
+    volumes:
+      - ..:/app
+    networks:
+      - vekil
+
+networks:
+  vekil:
+    external: true
+    name: ${AG:-caddy}
